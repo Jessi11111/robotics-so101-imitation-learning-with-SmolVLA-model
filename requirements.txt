@@ -1,0 +1,22 @@
+# Core ML and training libraries
+torch>=2.0.0
+torchvision
+transformers>=4.35.0
+accelerate
+datasets>=2.14.0
+pillow
+opencv-python
+numpy
+tqdm
+wandb
+timm
+einops
+sentencepiece
+protobuf
+
+# Robot learning library
+# Note: evdev is Linux-only and may cause issues on WSL
+# For macOS/Windows: lerobot installs without evdev (it's optional)
+# For WSL/Linux: if evdev fails, install evdev-binary first, then lerobot
+lerobot
+
