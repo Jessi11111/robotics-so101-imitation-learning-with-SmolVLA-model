@@ -23,18 +23,30 @@ import argparse
 import os
 import torch
 from pathlib import Path
-from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
 from transformers import AutoProcessor, AutoModelForVision2Seq
 import json
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 import numpy as np
+
+# Optional: lerobot for local dataset loading
+try:
+    from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
+    LEROBOT_AVAILABLE = True
+except ImportError:
+    LEROBOT_AVAILABLE = False
+    LeRobotDataset = None
+    print("Warning: lerobot not available. You can still use Hugging Face datasets with --from_huggingface")
+
+# Required: Hugging Face datasets library
 try:
     from datasets import load_dataset
     DATASETS_AVAILABLE = True
 except ImportError:
     DATASETS_AVAILABLE = False
     print("Warning: datasets library not available. Install with: pip install datasets")
+
+# Optional: wandb for experiment tracking
 try:
     import wandb
     WANDB_AVAILABLE = True
@@ -104,7 +116,14 @@ def prepare_dataset(dataset_path, batch_size=4, num_workers=4, from_huggingface=
         except Exception as e:
             raise ValueError(f"Failed to load Hugging Face dataset: {e}")
     else:
-        # Load from local path
+        # Load from local path (requires lerobot)
+        if not LEROBOT_AVAILABLE:
+            raise ImportError(
+                "lerobot is required for local dataset loading. "
+                "Either install lerobot or use --from_huggingface for Hugging Face datasets. "
+                "Install with: pip install lerobot (or use --no-deps to avoid evdev)"
+            )
+        
         if not os.path.exists(dataset_path):
             raise ValueError(f"Dataset path does not exist: {dataset_path}")
         
