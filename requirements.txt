@@ -1,0 +1,23 @@
+# SmolVLA Fine-tuning Requirements
+# 
+# Note: This file is auto-generated from the notebook.
+# For manual installation, install LeRobot with SmolVLA support:
+#
+# git clone https://github.com/huggingface/lerobot.git
+# cd lerobot
+# pip install -e ".[smolvla]"
+#
+# Or use the requirements generated from your environment:
+# pip freeze > requirements.txt
+
+# Core dependencies (installed via lerobot[smolvla])
+# torch>=2.2.1
+# transformers>=4.53.0
+# datasets>=4.0.0
+# diffusers>=0.27.2
+# huggingface-hub>=0.34.2
+# accelerate>=1.10.0
+
+# For Google Colab, dependencies are installed automatically in the notebook.
+# For local setup, follow the installation instructions in README.md
+
